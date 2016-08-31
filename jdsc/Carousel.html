@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;padding:0;font-size: 12px;
+        }
+        li{
+            list-style-type: none;
+        }
+        #allgoods_c_c{
+            position:relative;width:730px;height:454px;
+            cursor: pointer;
+        }
+        #buttons {
+            position: absolute; height: 10px;
+            width: 240px;
+            bottom: 20px; left: 300px;
+        }
+        #buttons span {
+            cursor: pointer; float: left; border: 1px solid #fff;
+            width: 20px; height: 20px; border-radius: 50%;
+            background: #333; margin-right: 5px;
+            color: #ffffff;
+        }
+        #buttons .on {
+            background:#c81623;
+        }
+        .arrow {
+            cursor: pointer; display: none; line-height: 39px;
+            text-align: center; font-size: 36px; font-weight: bold;
+            width: 40px; height: 40px;  position: absolute;
+            top: 180px; background-color: #eee; color: #fff;
+        }
+        .arrow:hover {
+            background-color: #f1f1f1;
+        }
+        #allgoods_c_c:hover .arrow {
+            display: block;
+        }
+        #prev {
+            left: 20px;
+        }
+        #next {
+            right: 20px;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oallgoods_c_c = document.getElementById('allgoods_c_c');
+            var oimg=document.getElementById('img1');
+            var buttons = document.getElementById('buttons').getElementsByTagName('span');
+            var prev = document.getElementById('prev');
+            var next = document.getElementById('next');
+            var arrimg=['img/allgoods_1.jpg','img/allgoods_2.jpg','img/allgoods_3.jpg','img/allgoods_4.jpg','img/allgoods_5.jpg','img/allgoods_6.jpg'];
+            var index = 1;
+            var animated = false;
+            var timer;
+            function showButton() {
+                for (var i = 0; i < buttons.length ; i++) {
+                    if( buttons[i].className == 'on'){
+                        buttons[i].className = '';
+                        break;
+                    }
+                }
+                buttons[index - 1].className = 'on';
+                oimg.src=arrimg[index-1];
+            }
+
+            function play() {
+                timer = setTimeout(function () {
+                    next.onclick();
+                    play();
+                }, 2000);
+            }
+            function stop() {
+                clearTimeout(timer);
+            }
+
+            next.onclick = function () {
+                if (index == 6) {
+                    index = 1;
+                }
+                else {
+                    index += 1;
+                }
+                showButton();
+            }
+            prev.onclick = function () {
+                if (index == 1) {
+                    index = 6;
+                }
+                else {
+                    index -= 1;
+                }
+                showButton();
+            }
+
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].onmouseover = function () {
+                    stop;
+                    if(this.className == 'on') {
+                        return;
+                    }
+                    var myIndex = parseInt(this.getAttribute('index'));
+                    index=myIndex;
+                    showButton();
+                }
+            }
+            oallgoods_c_c.onmouseover = stop;
+            oallgoods_c_c.onmouseout = play;
+            play();
+        }
+    </script>
+</head>
+<body>
+    <div id="allgoods_c_c">
+        <img id="img1" src="img/allgoods_1.jpg">
+        <div id="buttons">
+            <span index="1" class="on"></span>
+            <span index="2"></span>
+            <span index="3"></span>
+            <span index="4"></span>
+            <span index="5"></span>
+            <span index="6"></span>
+        </div>
+        <div id="prev" class="arrow">&lt;</div>
+        <div id="next" class="arrow">&gt;</div>
+    </div>
+</body>
+</html>

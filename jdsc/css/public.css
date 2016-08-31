@@ -1,0 +1,18 @@
+html,body,div,a,span,p,b,ul,li,img,input{
+    margin:0;padding:0;color:#666;
+}
+img{
+    vertical-align: middle;
+}
+ul,li{
+    list-style-type:none;
+}
+.lf{
+    float:left;
+}
+.rf{
+    float:right;
+}
+.cf{
+    clear:both;
+}
